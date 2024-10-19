@@ -19,6 +19,8 @@ public class Assignments {
 
     public boolean isEmpty(String string) {
 
+        if(string == null) return true;
+
         CheckString checkString = s -> s.isEmpty();
 
         return checkString.check(string);
@@ -33,7 +35,7 @@ public class Assignments {
     }
 
     public List<Integer> filterOutEven(List<Integer> integers) {
-        return integers.stream().filter(i -> i % 2 == 1).toList();
+        return integers.stream().filter(i -> i % 2 == 1 || i % 2 == -1).toList();
     }
 
     public List<Integer> filterOutOdd(List<Integer> integers) {
@@ -72,7 +74,7 @@ public class Assignments {
             for (int j = i / 2; j > 1; j--) {
                 if (i % j == 0) return false;
             }
-            return true;
+            return i >= 2;
         };
 
         return checkInt.check(integer);
@@ -98,9 +100,7 @@ public class Assignments {
     }
 
     public int getProduct(List<Integer> integers) {
-        AtomicInteger sum = new AtomicInteger();
-        integers.stream().forEach(i -> sum.updateAndGet(v -> v * i));
-        return sum.get();
+        return integers.stream().reduce((n1, n2) -> n1 * n2).orElse(-1);
     }
 
     public int countWords(String text) {
@@ -174,8 +174,10 @@ public class Assignments {
         return converter.convert(arr);
     }
 
-    public List<Object> sortList(List<Object> object,) {
+    public List<Object> sortList(List<Object> object) {
+        return null;
 
+//        lsjdflkjasfiwej jflksjfjsfojweoifj
     }
 
     public int sumOfAllPrimesInRange(int lowerBound, int upperBound) {
@@ -183,7 +185,7 @@ public class Assignments {
         ConvertInts converter = (n1, n2) -> {
             List<Integer> primes = new ArrayList<>();
 
-            for (int i = n1; i <= n2; i++) {
+            for (int i = n1; i <= n2 && i != 1; i++) {
 
                 for (int j = i / 2; j > 1; j--) {
                     if (i % j == 0) break;
@@ -216,17 +218,20 @@ public class Assignments {
 
     }
 
-    public int getAverageLength(List<String> strings) {
+    public double getAverageLength(List<String> strings) {
 
-        return (int) strings.stream().mapToInt(String::length).average().orElse(-1);
+        return strings.stream().mapToInt(String::length).average().orElse(-1);
 
     }
 
     public int getLargestPrimeFactor(int number) {
 
         ConvertInt converter = n -> {
+
             for (int i = n / 2; i > 1; i--) {
-                if (n % i == 0) return i;
+                if (n % i == 0 || checkIfPrime(i)) {
+                    return i;
+                }
             }
 
             return 1;
@@ -248,7 +253,7 @@ public class Assignments {
                 digit = rest % 2;
                 rest = rest / 2;
 
-                binary += String.valueOf(digit);
+                binary = digit + binary;
             }
 
             return Integer.parseInt(binary);
