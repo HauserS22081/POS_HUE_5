@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -146,13 +147,13 @@ public class AssignmentsTest {
     @Test
     @DisplayName("sortAlphabetically with def, aaa, ABc, Xaaa, xaaa")
     void sortAlphabetically2() {
-        Assertions.assertEquals(List.of("ABc, Xaaa, aaa, def, xaaa"), test.sortAlphabetically(List.of("def", "aaa", "ABc", "Xaaa", "xaaa")));
+        Assertions.assertEquals(List.of("ABc", "Xaaa", "aaa", "def", "xaaa"), test.sortAlphabetically(List.of("def", "aaa", "ABc", "Xaaa", "xaaa")));
     }
 
     @Test
     @DisplayName("sortAlphabetically with xxxxa, xxxa, xxa")
     void sortAlphabetically3() {
-        Assertions.assertEquals(List.of("xxa, xxxa, xxxxa"), test.sortAlphabetically(List.of("xxxxa", "xxxa", "xxa")));
+        Assertions.assertEquals(List.of("xxa", "xxxa", "xxxxa"), test.sortAlphabetically(List.of("xxxxa", "xxxa", "xxa")));
     }
 
 
@@ -348,13 +349,13 @@ public class AssignmentsTest {
     @Test
     @DisplayName("countWord with 'abc awfwe wer '")
     void countWords2() {
-        Assertions.assertEquals(4, test.countWords("abc awfwe wer "));
+        Assertions.assertEquals(3, test.countWords("abc awfwe wer "));
     }
 
     @Test
     @DisplayName("countWord with 'abc awfwe   wer'")
     void countWords3() {
-        Assertions.assertEquals(5, test.countWords("abc awfwe   wer"));
+        Assertions.assertEquals(3, test.countWords("abc awfwe   wer"));
     }
 
 
@@ -524,18 +525,33 @@ public class AssignmentsTest {
 
 
     @Test
-    @DisplayName("sortList with 4, 5")
+    @DisplayName("sortList with Persons of age 0, 5, 18")
     void sortList1() {
+        Person p1 = new Person(0, "a", "b");
+        Person p2 = new Person(5, "c", "d");
+        Person p3 = new Person(18, "e", "f");
+
+        Assertions.assertEquals(List.of(p1, p2, p3), test.sortList(List.of(p2, p1, p3)));
     }
 
     @Test
-    @DisplayName("sortList with 4, 5")
+    @DisplayName("sortList with Persons of age 0, 500, 18")
     void sortList2() {
+        Person p1 = new Person(0, "a", "b");
+        Person p2 = new Person(500, "c", "d");
+        Person p3 = new Person(18, "e", "f");
+
+        Assertions.assertEquals(List.of(p1, p3, p2), test.sortList(List.of(p2, p1, p3)));
     }
 
     @Test
-    @DisplayName("sortList with 4, 5")
+    @DisplayName("sortList with Persons of age 1, 1, 5")
     void sortList3() {
+        Person p1 = new Person(1, "a", "b");
+        Person p2 = new Person(1, "c", "d");
+        Person p3 = new Person(5, "e", "f");
+
+        Assertions.assertEquals(List.of(p1, p2, p3), test.sortList(List.of(p3, p1, p2)));
     }
 
 
@@ -555,7 +571,7 @@ public class AssignmentsTest {
     @Test
     @DisplayName("sumOfAllPrimesInRange with 0, 5")
     void sumOfAllPrimesInRange3() {
-        Assertions.assertEquals(8, test.sumOfAllPrimesInRange(0,5));
+        Assertions.assertEquals(10, test.sumOfAllPrimesInRange(0,5));
     }
 
 

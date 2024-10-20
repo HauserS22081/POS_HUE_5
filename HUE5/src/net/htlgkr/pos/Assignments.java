@@ -4,6 +4,7 @@ import net.htlgkr.pos.functionalInterfaces.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
@@ -106,6 +107,7 @@ public class Assignments {
     public int countWords(String text) {
         int counter = 0;
         return Arrays.stream(text.split(" "))
+                .filter(s -> !s.isEmpty())
                 .mapToInt(s -> 1).sum();
     }
 
@@ -174,10 +176,13 @@ public class Assignments {
         return converter.convert(arr);
     }
 
-    public List<Object> sortList(List<Object> object) {
-        return null;
-
-//        lsjdflkjasfiwej jflksjfjsfojweoifj
+    public List<Person> sortList(List<Person> persons) {
+        return persons.stream()
+                .sorted((p1, p2) -> p1.getAge() - p2.getAge())
+                .toList();
+//        return persons.stream()
+//                .sorted(Comparator.comparingInt(Person::getAge))
+//                .toList();
     }
 
     public int sumOfAllPrimesInRange(int lowerBound, int upperBound) {
@@ -185,7 +190,14 @@ public class Assignments {
         ConvertInts converter = (n1, n2) -> {
             List<Integer> primes = new ArrayList<>();
 
-            for (int i = n1; i <= n2 && i != 1; i++) {
+            if (n1 < 2) n1 = 2;
+
+            for (int i = n1; i <= n2; i++) {
+
+                if (i == 2 || i == 3) {
+                    primes.add(i);
+                    continue;
+                }
 
                 for (int j = i / 2; j > 1; j--) {
                     if (i % j == 0) break;
@@ -229,12 +241,12 @@ public class Assignments {
         ConvertInt converter = n -> {
 
             for (int i = n / 2; i > 1; i--) {
-                if (n % i == 0 || checkIfPrime(i)) {
+                if (n % i == 0 && checkIfPrime(i)) {
                     return i;
                 }
             }
 
-            return 1;
+            return 0;
         };
 
         return converter.convert(number);
